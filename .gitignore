@@ -1,0 +1,16 @@
+# 校验脚本使用的 VS Code 官方主题缓存。
+# 属第三方文件（微软，MIT），不入库；缺失时 tools/validate.py 会自动联网下载，
+# 也可显式重建：python tools/validate.py --fetch
+tools/_vsc/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 本仓库只是主题源码，不是 Obsidian 库（vault），忽略本地库状态
+.obsidian/

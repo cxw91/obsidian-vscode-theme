@@ -1,0 +1,1599 @@
+/* ============================================================================
+ * VS Code Theme for Obsidian
+ * ----------------------------------------------------------------------------
+ * 色值来源：microsoft/vscode 官方仓库，逐项核实
+ *   - extensions/theme-defaults/themes/2026-dark.json
+ *   - extensions/theme-defaults/themes/2026-light.json
+ *
+ * 覆盖范围：编辑器正文与语法高亮、侧栏、标签页、状态栏、活动栏、
+ *          搜索、图谱、Bases、Canvas、12 类 Callout
+ * ========================================================================== */
+
+/* ==========================================================================
+ * 第 1 部分：暗色模式变量（VS Code Dark 2026）
+ * ========================================================================== */
+
+.theme-dark {
+  /* --- 1.1 基础 UI 层级 -------------------------------------------------
+   * 2026 主题的层级逻辑：编辑器最暗（#121314），UI 面（#191A1B）次之，
+   * 浮层（菜单/控件 #202122）最亮。这与 Dark Modern（编辑器最亮）相反。
+   */
+  --vsc-bg-editor:      #121314;  /* editor.background              */
+  --vsc-bg-sidebar:     #191A1B;  /* sideBar.background             */
+  --vsc-bg-activitybar: #191A1B;  /* activityBar.background         */
+  --vsc-bg-titlebar:    #191A1B;  /* titleBar.activeBackground      */
+  --vsc-bg-tab-active:  #121314;  /* tab.activeBackground           */
+  --vsc-bg-tab-inactive:#191A1B;  /* tab.inactiveBackground         */
+  --vsc-bg-panel:       #191A1B;  /* panel.background               */
+  --vsc-bg-widget:      #202122;  /* editorWidget.background        */
+  --vsc-bg-input:       #191A1B;  /* input.background               */
+  --vsc-bg-dropdown:    #191A1B;  /* dropdown.background            */
+  --vsc-bg-hover:       #FFFFFF14;/* list.hoverBackground           */
+  --vsc-bg-menu:        #202122;  /* menu.background                */
+  --vsc-bg-menubar-sel: #242526;  /* menubar.selectionBackground    */
+
+  /* --- 1.2 前景与边框 --------------------------------------------------- */
+  --vsc-fg-primary:     #BBBEBF;  /* editor.foreground              */
+  --vsc-fg-ui:          #BFBFBF;  /* foreground (workbench)         */
+  --vsc-fg-secondary:   #8C8C8C;  /* titleBar.activeForeground      */
+  --vsc-fg-muted:       #858889;  /* editorLineNumber.foreground    */
+  --vsc-fg-placeholder: #555555;  /* input.placeholderForeground    */
+  --vsc-fg-disabled:    #555555;  /* disabledForeground             */
+  --vsc-border:         #2A2B2C;  /* editorGroup.border / sideBar.border */
+  --vsc-border-input:   #333536;  /* input.border / dropdown.border */
+  --vsc-border-menu:    #2A2B2C;  /* menu.border                    */
+
+  /* --- 1.3 交互态 ------------------------------------------------------- */
+  --vsc-accent:         #3994BC;  /* tab.activeBorderTop / panelTitle.activeBorder */
+  --vsc-accent-rgb:     57, 148, 188;
+  --vsc-button:         #297AA0;  /* button.background              */
+  --vsc-button-hover:   #2B7DA3;  /* button.hoverBackground         */
+  --vsc-focus:          #3994BCB3;/* focusBorder                    */
+  --vsc-selection:      #276782DD;/* editor.selectionBackground     */
+  --vsc-sel-inactive:   #27678260;/* editor.inactiveSelectionBackground */
+  --vsc-sel-highlight:  #27678260;/* editor.selectionHighlightBackground */
+  --vsc-list-active-bg: #FFFFFF22;/* list.activeSelectionBackground */
+  --vsc-list-active-fg: #EDEDED;  /* list.activeSelectionForeground */
+  --vsc-list-inactive:  #2C2D2E;  /* list.inactiveSelectionBackground */
+  --vsc-list-hover:     #FFFFFF14;/* list.hoverBackground           */
+  --vsc-highlight:      #48A0C7;  /* list.highlightForeground       */
+  --vsc-badge:          #307E9F;  /* badge.background               */
+  --vsc-link:           #48A0C7;  /* textLink.foreground            */
+  --vsc-link-active:    #53A5CA;  /* textLink.activeForeground      */
+
+  /* --- 1.4 状态色 ------------------------------------------------------- */
+  --vsc-error:          #F48771;  /* errorForeground                */
+  --vsc-warning:        #E5BA7D;  /* list.warningForeground         */
+  --vsc-warning-icon:   #CCA700;  /* notificationsWarningIcon       */
+  --vsc-info:           #3994BC;  /* notificationsInfoIcon          */
+  --vsc-git-added:      #73C991;  /* gitDecoration.addedResourceForeground */
+  --vsc-git-modified:   #E5BA7D;  /* gitDecoration.modifiedResourceForeground */
+  --vsc-git-deleted:    #F48771;  /* gitDecoration.deletedResourceForeground */
+
+  /* --- 1.5 编辑器细节 --------------------------------------------------- */
+  --vsc-cursor:         #BBBEBF;  /* editorCursor.foreground        */
+  --vsc-line-number:    #858889;  /* editorLineNumber.foreground    */
+  --vsc-line-number-act:#BBBEBF;  /* editorLineNumber.activeForeground */
+  --vsc-indent-guide:   #8384854D;/* editorIndentGuide.background1  */
+  --vsc-indent-active:  #838485;  /* editorIndentGuide.activeBackground1 */
+  --vsc-line-highlight: #242526;  /* editor.lineHighlightBackground */
+  --vsc-whitespace:     #8C8C8C4D;/* editorWhitespace.foreground    */
+
+  /* --- 1.6 语法高亮 Token（2026-dark tokenColors）----------------------
+   * 注意：这是 GitHub Dark 调色板，与 Dark+ / Dark Modern 完全不同。
+   * 最显著的变化：关键字变红、字符串变浅蓝、函数变紫、标题变浅蓝。
+   */
+  --vsc-comment:        #8B949E;  /* comment                        */
+  --vsc-keyword:        #FF7B72;  /* keyword / storage / storage.type */
+  --vsc-string:         #A5D6FF;  /* string                         */
+  --vsc-constant:       #79C0FF;  /* constant / support.* / variable.other.constant */
+  --vsc-function:       #D2A8FF;  /* entity.name.function           */
+  --vsc-entity:         #FFA657;  /* entity.name                    */
+  --vsc-variable:       #FFA657;  /* variable / variable.parameter  */
+  --vsc-variable-other: #C9D1D9;  /* variable.other                 */
+  --vsc-tag:            #7EE787;  /* entity.name.tag                */
+  --vsc-heading:        #79C0FF;  /* markup.heading (bold)          */
+  --vsc-bold:           #C9D1D9;  /* markup.bold                    */
+  --vsc-italic:         #C9D1D9;  /* markup.italic                  */
+  --vsc-inline-code:    #79C0FF;  /* markup.inline.raw              */
+  --vsc-list-bullet:    #FFA657;  /* punctuation.definition.list.begin.markdown */
+  --vsc-quote-fg:       #7EE787;  /* markup.quote                   */
+  --vsc-md-link:        #A5D6FF;  /* string.other.link —— Markdown 链接文字
+                                   * 注意：不是 textLink.foreground（#48A0C7），
+                                   * 那是工作台 UI 链接，两者在 2026 主题里不同色。 */
+  --vsc-invalid:        #FFA198;  /* invalid.*                      */
+  --vsc-diff-added:     #7EE787;  /* markup.inserted                */
+  --vsc-diff-deleted:   #FFA198;  /* markup.deleted                 */
+  --vsc-diff-changed:   #FFA657;  /* markup.changed                 */
+
+  /* --- 1.7 Markdown 专属 ------------------------------------------------- */
+  --vsc-quote-bg:       #242526;  /* textBlockQuote.background      */
+  --vsc-quote-border:   #2A2B2C;  /* textBlockQuote.border          */
+  --vsc-codeblock-bg:   #242526;  /* textCodeBlock.background       */
+  --vsc-preformat-bg:   #262626;  /* textPreformat.background       */
+  --vsc-preformat-fg:   #8C8C8C;  /* textPreformat.foreground       */
+  --vsc-hr:             #2A2B2C;
+  --vsc-hl-bg:          #FFA65740;/* 高亮底色：取调色板橙，降透明度（VS Code 无此语法，自定） */
+
+  /* --- 1.8 滚动条 ------------------------------------------------------- */
+  --vsc-scrollbar:      #A8A9AA85;
+  --vsc-scrollbar-hover:#A8A9AA90;
+  --vsc-scrollbar-act:  #A8A9AA9C;
+
+  /* --- 1.9 阴影 --------------------------------------------------------- */
+  --vsc-shadow:         #191B1D4D;
+}
+
+/* ==========================================================================
+ * 第 2 部分：亮色模式变量（VS Code Light 2026）
+ * ========================================================================== */
+
+.theme-light {
+  /* --- 2.1 基础 UI 层级 -------------------------------------------------
+   * 亮色下编辑器最亮（#FFFFFF），UI 面为极淡的冷白（#FAFAFD）。
+   */
+  --vsc-bg-editor:      #FFFFFF;  /* editor.background              */
+  --vsc-bg-sidebar:     #FAFAFD;  /* sideBar.background             */
+  --vsc-bg-activitybar: #FAFAFD;  /* activityBar.background         */
+  --vsc-bg-titlebar:    #FAFAFD;  /* titleBar.activeBackground      */
+  --vsc-bg-tab-active:  #FFFFFF;  /* tab.activeBackground           */
+  --vsc-bg-tab-inactive:#FAFAFD;  /* tab.inactiveBackground         */
+  --vsc-bg-panel:       #FAFAFD;  /* panel.background               */
+  --vsc-bg-widget:      #FAFAFD;  /* editorWidget.background        */
+  --vsc-bg-input:       #FFFFFF;  /* input.background               */
+  --vsc-bg-dropdown:    #FFFFFF;  /* dropdown.background            */
+  --vsc-bg-hover:       #00000014;/* list.hoverBackground           */
+  --vsc-bg-menu:        #FAFAFD;  /* menu.background                */
+  --vsc-bg-menubar-sel: #EAEAEA;  /* menubar.selectionBackground    */
+
+  /* --- 2.2 前景与边框 --------------------------------------------------- */
+  --vsc-fg-primary:     #202020;  /* editor.foreground              */
+  --vsc-fg-ui:          #202020;  /* foreground (workbench)         */
+  --vsc-fg-secondary:   #606060;  /* titleBar.activeForeground      */
+  --vsc-fg-muted:       #606060;  /* editorLineNumber.foreground    */
+  --vsc-fg-placeholder: #999999;  /* input.placeholderForeground    */
+  --vsc-fg-disabled:    #BBBBBB;  /* disabledForeground             */
+  --vsc-border:         #F0F1F2;  /* sideBar.border / panel.border  */
+  --vsc-border-input:   #D8D8D8;  /* input.border / dropdown.border */
+  --vsc-border-menu:    #E4E5E6;  /* menu.border                    */
+
+  /* --- 2.3 交互态 ------------------------------------------------------- */
+  --vsc-accent:         #0069CC;  /* focusBorder / badge.background */
+  --vsc-accent-rgb:     0, 105, 204;
+  --vsc-button:         #0069CC;  /* button.background              */
+  --vsc-button-hover:   #0063C1;  /* button.hoverBackground         */
+  --vsc-focus:          #0069CC;  /* focusBorder                    */
+  --vsc-selection:      #0069CC40;/* editor.selectionBackground     */
+  --vsc-sel-inactive:   #0069CC1A;/* editor.inactiveSelectionBackground */
+  --vsc-sel-highlight:  #0069CC15;/* editor.selectionHighlightBackground */
+  --vsc-list-active-bg: #00000025;/* list.activeSelectionBackground */
+  --vsc-list-active-fg: #202020;  /* list.activeSelectionForeground */
+  --vsc-list-inactive:  #DADADA99;/* list.inactiveSelectionBackground */
+  --vsc-list-hover:     #00000014;/* list.hoverBackground           */
+  --vsc-highlight:      #0069CC;  /* list.highlightForeground       */
+  --vsc-badge:          #0069CC;  /* badge.background               */
+  --vsc-link:           #0069CC;  /* textLink.foreground            */
+  --vsc-link-active:    #0069CC;  /* textLink.activeForeground      */
+
+  /* --- 2.4 状态色 ------------------------------------------------------- */
+  --vsc-error:          #AD0707;  /* errorForeground                */
+  --vsc-warning:        #667309;  /* list.warningForeground         */
+  --vsc-warning-icon:   #B69500;  /* notificationsWarningIcon       */
+  --vsc-info:           #0069CC;  /* notificationsInfoIcon          */
+  --vsc-git-added:      #587C0C;  /* gitDecoration.addedResourceForeground */
+  --vsc-git-modified:   #667309;  /* gitDecoration.modifiedResourceForeground */
+  --vsc-git-deleted:    #AD0707;  /* gitDecoration.deletedResourceForeground */
+
+  /* --- 2.5 编辑器细节 --------------------------------------------------- */
+  --vsc-cursor:         #202020;  /* editorCursor.foreground        */
+  --vsc-line-number:    #606060;  /* editorLineNumber.foreground    */
+  --vsc-line-number-act:#202020;  /* editorLineNumber.activeForeground */
+  --vsc-indent-guide:   #F7F7F740;/* editorIndentGuide.background1  */
+  --vsc-indent-active:  #EEEEEE;  /* editorIndentGuide.activeBackground1 */
+  --vsc-line-highlight: #EAEAEA40;/* editor.lineHighlightBackground */
+  --vsc-whitespace:     #60606040;/* editorWhitespace.foreground    */
+
+  /* --- 2.6 语法高亮 Token（2026-light tokenColors）---------------------
+   * GitHub Light 调色板。关键字红、字符串深蓝、函数紫、标题深蓝。
+   */
+  --vsc-comment:        #6E7781;  /* comment                        */
+  --vsc-keyword:        #CF222E;  /* keyword / storage / storage.type */
+  --vsc-string:         #0A3069;  /* string                         */
+  --vsc-constant:       #0550AE;  /* constant / support.* / variable.other.constant */
+  --vsc-function:       #8250DF;  /* entity.name.function           */
+  --vsc-entity:         #953800;  /* entity.name                    */
+  --vsc-variable:       #953800;  /* variable / variable.parameter  */
+  --vsc-variable-other: #1F2328;  /* variable.other                 */
+  --vsc-tag:            #116329;  /* entity.name.tag                */
+  --vsc-heading:        #0550AE;  /* markup.heading (bold)          */
+  --vsc-bold:           #1F2328;  /* markup.bold                    */
+  --vsc-italic:         #1F2328;  /* markup.italic                  */
+  --vsc-inline-code:    #0550AE;  /* markup.inline.raw              */
+  --vsc-list-bullet:    #953800;  /* punctuation.definition.list.begin.markdown */
+  --vsc-quote-fg:       #116329;  /* markup.quote                   */
+  --vsc-md-link:        #0A3069;  /* string.other.link —— Markdown 链接文字
+                                   * 注意：不是 textLink.foreground（#0069CC），
+                                   * 那是工作台 UI 链接，两者在 2026 主题里不同色。 */
+  --vsc-invalid:        #82071E;  /* invalid.*                      */
+  --vsc-diff-added:     #116329;  /* markup.inserted                */
+  --vsc-diff-deleted:   #82071E;  /* markup.deleted                 */
+  --vsc-diff-changed:   #953800;  /* markup.changed                 */
+
+  /* --- 2.7 Markdown 专属 ------------------------------------------------- */
+  --vsc-quote-bg:       #EAEAEA;  /* textBlockQuote.background      */
+  --vsc-quote-border:   #F0F1F2;  /* textBlockQuote.border          */
+  --vsc-codeblock-bg:   #EAEAEA;  /* textCodeBlock.background       */
+  --vsc-preformat-bg:   #ECECEC;  /* textPreformat.background       */
+  --vsc-preformat-fg:   #606060;  /* textPreformat.foreground       */
+  --vsc-hr:             #F0F1F2;
+  --vsc-hl-bg:          #FFE8CC;  /* 高亮底色：取调色板橙的浅色版（VS Code 无此语法，自定） */
+
+  /* --- 2.8 滚动条 ------------------------------------------------------- */
+  --vsc-scrollbar:      #646464C0;
+  --vsc-scrollbar-hover:#646464D0;
+  --vsc-scrollbar-act:  #646464E0;
+
+  /* --- 2.9 阴影 --------------------------------------------------------- */
+  --vsc-shadow:         #00000000;/* 2026-light 的 scrollbar.shadow/widget.shadow 为全透明 */
+}
+
+/* ==========================================================================
+ * 第 3 部分：Obsidian 官方变量映射
+ * --------------------------------------------------------------------------
+ * 把上面的 VS Code 色值接入 Obsidian 自身的变量体系。
+ * 这一层是「翻译层」，让 Obsidian 原生 UI 正确着色。
+ * ========================================================================== */
+
+/* ---------- 3.1 暗色 ---------- */
+.theme-dark {
+  --background-primary:        var(--vsc-bg-editor);
+  --background-primary-alt:    var(--vsc-quote-bg);
+  --background-secondary:      var(--vsc-bg-sidebar);
+  --background-secondary-alt:  var(--vsc-bg-sidebar);
+  --background-modifier-hover: var(--vsc-bg-hover);
+  --background-modifier-active-hover: var(--vsc-list-inactive);
+  --background-modifier-border: var(--vsc-border);
+  --background-modifier-border-hover: var(--vsc-border-input);
+  --background-modifier-border-focus: var(--vsc-focus);
+  --background-modifier-form-field: var(--vsc-bg-input);
+  --background-modifier-box-shadow: var(--vsc-shadow);
+
+  --text-normal:       var(--vsc-fg-primary);
+  --text-muted:        var(--vsc-fg-secondary);
+  --text-faint:        #6E7173;
+  --text-on-accent:    #FFFFFF;
+  --text-accent:       var(--vsc-link);
+  --text-accent-hover: var(--vsc-link-active);
+  --text-selection:    var(--vsc-selection);
+  --text-highlight-bg: var(--vsc-hl-bg);
+  --text-error:        var(--vsc-error);
+  --text-warning:      var(--vsc-warning);
+  --text-success:      var(--vsc-git-added);
+  --text-code:         var(--vsc-inline-code);
+
+  --interactive-normal:       var(--vsc-bg-sidebar);
+  --interactive-hover:        var(--vsc-bg-menubar-sel);
+  --interactive-accent:       var(--vsc-button);
+  --interactive-accent-hover: var(--vsc-button-hover);
+  --interactive-accent-rgb:   57, 148, 188;
+
+  --divider-color:      var(--vsc-border);
+  --titlebar-background: var(--vsc-bg-titlebar);
+  --titlebar-background-focused: var(--vsc-bg-titlebar);
+  --titlebar-text-color: var(--vsc-fg-secondary);
+  --titlebar-text-color-focused: var(--vsc-fg-secondary);
+
+  --tab-background-active:   var(--vsc-bg-tab-active);
+  --tab-text-color:          var(--vsc-fg-secondary);
+  --tab-text-color-active:   var(--vsc-fg-ui);
+  --tab-text-color-focused:  var(--vsc-fg-ui);
+  --tab-outline-color:       var(--vsc-border);
+
+  --scrollbar-bg:            transparent;
+  --scrollbar-thumb-bg:      var(--vsc-scrollbar);
+  --scrollbar-active-thumb-bg: var(--vsc-scrollbar-act);
+
+  --code-background:   var(--vsc-codeblock-bg);
+  --code-normal:       var(--vsc-fg-primary);
+  --code-comment:      var(--vsc-comment);
+  --code-function:     var(--vsc-function);
+  --code-important:    var(--vsc-keyword);
+  --code-keyword:      var(--vsc-keyword);
+  --code-property:     var(--vsc-constant);
+  --code-punctuation:  var(--vsc-variable-other);
+  --code-string:       var(--vsc-string);
+  --code-tag:          var(--vsc-tag);
+  --code-value:        var(--vsc-constant);
+
+  --h1-color: var(--vsc-heading);
+  --h2-color: var(--vsc-heading);
+  --h3-color: var(--vsc-heading);
+  --h4-color: var(--vsc-heading);
+  --h5-color: var(--vsc-heading);
+  --h6-color: var(--vsc-heading);
+
+  --link-color:        var(--vsc-link);       /* 工作台 UI 链接（按钮/设置页）保持 #48A0C7 */
+  --link-color-hover:  var(--vsc-link-active);
+  --link-external-color: var(--vsc-md-link);  /* 编辑器/阅读视图的 Markdown 链接 → string.other.link */
+  --link-unresolved-color: #6E7173;
+
+  --graph-node:            #8C8C8C;
+  --graph-node-focused:    var(--vsc-link);
+  --graph-node-tag:        var(--vsc-tag);
+  --graph-node-attachment: var(--vsc-entity);
+  --graph-node-unresolved: #555555;
+  --graph-line:            #2A2B2C;
+  --graph-text:            var(--vsc-fg-ui);
+
+  --checkbox-color:      var(--vsc-button);
+  --checkbox-color-hover: var(--vsc-button-hover);
+  --checkbox-marker-color: #FFFFFF;
+  --checklist-done-color: var(--vsc-fg-secondary);
+
+  --tag-color:             var(--vsc-tag);
+  --tag-background:        #7EE7871A;
+  --tag-background-hover:  #7EE78733;
+
+  --table-border-color: var(--vsc-border);
+  --table-header-background: var(--vsc-bg-widget);
+  --table-row-even-background: var(--vsc-quote-bg);
+  --table-row-odd-background:  var(--vsc-bg-editor);
+
+  /* 引用块 —— 2026 主题 markup.quote 为绿色【文字】，且不加斜体。
+   * 必须设置 --blockquote-color：Obsidian 内置
+   *   `.cm-s-obsidian span.cm-quote { color: var(--blockquote-color) }`
+   * 若不设置，引用文字会退回 Obsidian 默认色（正文色），而不是 VS Code 的绿色。 */
+  --blockquote-color:            var(--vsc-quote-fg);
+  --blockquote-background-color: var(--vsc-quote-bg);
+  --blockquote-border-color:     var(--vsc-quote-border);
+  --blockquote-font-style:       normal;   /* 阅读视图 */
+  --blockquote-style:            normal;   /* 编辑器 Live Preview */
+
+  /* 列表符号 —— 2026 主题 punctuation.definition.list.begin 为橙色 #FFA657。
+   * 圆点实由 `.list-bullet:after { background-color: var(--list-marker-color) }`
+   * 绘制，只写 color 规则不会改变圆点颜色，故必须设置该变量。 */
+  --list-marker-color:           var(--vsc-list-bullet);
+  --list-marker-color-hover:     var(--vsc-list-bullet);
+  --list-marker-color-collapsed: var(--vsc-fg-muted);
+
+  --hr-color: var(--vsc-hr);
+
+  --canvas-background: var(--vsc-bg-editor);
+  --canvas-card-label-color: var(--vsc-fg-secondary);
+  --canvas-dot-pattern: var(--vsc-indent-guide);
+
+  --background-modifier-error:   #3A1D1D;
+  --background-modifier-error-hover: #4A2525;
+  --background-modifier-success: #1E3A47;
+  --background-modifier-message: var(--vsc-bg-widget);
+
+  --modal-background: var(--vsc-bg-widget);
+  --modal-border-color: var(--vsc-border);
+
+  --prompt-border-color: var(--vsc-border);
+  --prompt-background:   var(--vsc-bg-menu);
+
+  /* Obsidian 语义色 —— 映射到 2026 调色板 */
+  --color-red:    var(--vsc-git-deleted);
+  --color-orange: var(--vsc-entity);
+  --color-yellow: var(--vsc-git-modified);
+  --color-green:  var(--vsc-git-added);
+  --color-cyan:   var(--vsc-tag);
+  --color-blue:   var(--vsc-constant);
+  --color-purple: var(--vsc-function);
+  --color-pink:   var(--vsc-keyword);
+}
+
+/* ---------- 3.2 亮色 ---------- */
+.theme-light {
+  --background-primary:        var(--vsc-bg-editor);
+  --background-primary-alt:    var(--vsc-quote-bg);
+  --background-secondary:      var(--vsc-bg-sidebar);
+  --background-secondary-alt:  var(--vsc-bg-sidebar);
+  --background-modifier-hover: var(--vsc-bg-hover);
+  --background-modifier-active-hover: var(--vsc-list-inactive);
+  --background-modifier-border: var(--vsc-border);
+  --background-modifier-border-hover: var(--vsc-border-input);
+  --background-modifier-border-focus: var(--vsc-focus);
+  --background-modifier-form-field: var(--vsc-bg-input);
+  --background-modifier-box-shadow: var(--vsc-shadow);
+
+  --text-normal:       var(--vsc-fg-primary);
+  --text-muted:        var(--vsc-fg-secondary);
+  --text-faint:        #8E8E90;
+  --text-on-accent:    #FFFFFF;
+  --text-accent:       var(--vsc-link);
+  --text-accent-hover: var(--vsc-link-active);
+  --text-selection:    var(--vsc-selection);
+  --text-highlight-bg: var(--vsc-hl-bg);
+  --text-error:        var(--vsc-error);
+  --text-warning:      var(--vsc-warning);
+  --text-success:      var(--vsc-git-added);
+  --text-code:         var(--vsc-inline-code);
+
+  --interactive-normal:       var(--vsc-bg-sidebar);
+  --interactive-hover:        var(--vsc-bg-menubar-sel);
+  --interactive-accent:       var(--vsc-button);
+  --interactive-accent-hover: var(--vsc-button-hover);
+  --interactive-accent-rgb:   0, 105, 204;
+
+  --divider-color:      var(--vsc-border);
+  --titlebar-background: var(--vsc-bg-titlebar);
+  --titlebar-background-focused: var(--vsc-bg-titlebar);
+  --titlebar-text-color: var(--vsc-fg-secondary);
+  --titlebar-text-color-focused: var(--vsc-fg-secondary);
+
+  --tab-background-active:   var(--vsc-bg-tab-active);
+  --tab-text-color:          var(--vsc-fg-secondary);
+  --tab-text-color-active:   var(--vsc-fg-ui);
+  --tab-text-color-focused:  var(--vsc-fg-ui);
+  --tab-outline-color:       var(--vsc-border);
+
+  --scrollbar-bg:            transparent;
+  --scrollbar-thumb-bg:      var(--vsc-scrollbar);
+  --scrollbar-active-thumb-bg: var(--vsc-scrollbar-act);
+
+  --code-background:   var(--vsc-codeblock-bg);
+  --code-normal:       var(--vsc-fg-primary);
+  --code-comment:      var(--vsc-comment);
+  --code-function:     var(--vsc-function);
+  --code-important:    var(--vsc-keyword);
+  --code-keyword:      var(--vsc-keyword);
+  --code-property:     var(--vsc-constant);
+  --code-punctuation:  var(--vsc-variable-other);
+  --code-string:       var(--vsc-string);
+  --code-tag:          var(--vsc-tag);
+  --code-value:        var(--vsc-constant);
+
+  --h1-color: var(--vsc-heading);
+  --h2-color: var(--vsc-heading);
+  --h3-color: var(--vsc-heading);
+  --h4-color: var(--vsc-heading);
+  --h5-color: var(--vsc-heading);
+  --h6-color: var(--vsc-heading);
+
+  --link-color:        var(--vsc-link);       /* 工作台 UI 链接（按钮/设置页）保持 #0069CC */
+  --link-color-hover:  var(--vsc-link-active);
+  --link-external-color: var(--vsc-md-link);  /* 编辑器/阅读视图的 Markdown 链接 → string.other.link */
+  --link-unresolved-color: #8E8E90;
+
+  --graph-node:            #8C8C8C;
+  --graph-node-focused:    var(--vsc-link);
+  --graph-node-tag:        var(--vsc-tag);
+  --graph-node-attachment: var(--vsc-entity);
+  --graph-node-unresolved: #BBBBBB;
+  --graph-line:            #E2E2E5;
+  --graph-text:            var(--vsc-fg-primary);
+
+  --checkbox-color:      var(--vsc-button);
+  --checkbox-color-hover: var(--vsc-button-hover);
+  --checkbox-marker-color: #FFFFFF;
+  --checklist-done-color: #8E8E90;
+
+  --tag-color:             var(--vsc-tag);
+  --tag-background:        #1163291A;
+  --tag-background-hover:  #11632933;
+
+  --table-border-color: var(--vsc-border);
+  --table-header-background: var(--vsc-bg-menubar-sel);
+  --table-row-even-background: #FAFAFA;
+  --table-row-odd-background:  var(--vsc-bg-editor);
+
+  /* 引用块（同暗色说明：必须设 --blockquote-color，否则引用文字不是绿色） */
+  --blockquote-color:            var(--vsc-quote-fg);
+  --blockquote-background-color: var(--vsc-quote-bg);
+  --blockquote-border-color:     var(--vsc-quote-border);
+  --blockquote-font-style:       normal;
+  --blockquote-style:            normal;
+
+  /* 列表符号（同暗色说明） */
+  --list-marker-color:           var(--vsc-list-bullet);
+  --list-marker-color-hover:     var(--vsc-list-bullet);
+  --list-marker-color-collapsed: var(--vsc-fg-muted);
+
+  --hr-color: var(--vsc-hr);
+
+  --canvas-background: var(--vsc-bg-editor);
+  --canvas-card-label-color: var(--vsc-fg-secondary);
+  --canvas-dot-pattern: var(--vsc-indent-guide);
+
+  --background-modifier-error:   #FDEDED;
+  --background-modifier-error-hover: #F8DDDD;
+  --background-modifier-success: #E6F2FA;
+  --background-modifier-message: var(--vsc-bg-widget);
+
+  --modal-background: var(--vsc-bg-widget);
+  --modal-border-color: var(--vsc-border-menu);
+
+  --prompt-border-color: var(--vsc-border-menu);
+  --prompt-background:   var(--vsc-bg-menu);
+
+  /* Obsidian 语义色 —— 映射到 2026 调色板 */
+  --color-red:    var(--vsc-git-deleted);
+  --color-orange: var(--vsc-entity);
+  --color-yellow: var(--vsc-git-modified);
+  --color-green:  var(--vsc-git-added);
+  --color-cyan:   var(--vsc-tag);
+  --color-blue:   var(--vsc-constant);
+  --color-purple: var(--vsc-function);
+  --color-pink:   var(--vsc-keyword);
+}
+
+/* ==========================================================================
+ * 第 4 部分：编辑器正文与语法高亮
+ * ========================================================================== */
+
+/* ---------- 4.1 基础排版 ---------- */
+.markdown-source-view,
+.markdown-reading-view {
+  --file-line-width: 46rem;   /* VS Code 默认不限制行宽，此处折中，兼顾可读性 */
+}
+
+.markdown-rendered {
+  line-height: 1.65;
+}
+
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  font-family: var(--font-text);
+  color: var(--text-normal);
+}
+
+/* ---------- 4.2 行号（仅源码模式可见） ---------- */
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement {
+  color: var(--vsc-line-number);
+  font-family: var(--font-monospace);
+  font-size: 0.85em;
+}
+
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement.cm-active {
+  color: var(--vsc-line-number-act);
+}
+
+/* ---------- 4.3 光标与选区 ---------- */
+.markdown-source-view.mod-cm6 .cm-cursor,
+.markdown-source-view.mod-cm6 .cm-cursor-primary {
+  border-left-color: var(--vsc-cursor);
+  border-left-width: 2px;
+}
+
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6 .cm-content ::selection {
+  background-color: var(--vsc-selection);
+}
+
+/* ---------- 4.4 标题 ----------
+ * VS Code 规则：markup.heading => #79C0FF / #0550AE，fontStyle: bold
+ * 关键：该规则作用于【整个标题行，包括 # 符号】。
+ * 因此这里必须让 # 标记符与标题文字同色，否则会出现「# 没颜色」的问题。
+ * VS Code 源码模式下各级标题字号相同，但 Obsidian 是渲染视图，
+ * 保留字号层级更实用（如需完全对齐，见 README 的可选片段）。
+ */
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6,
+.cm-s-obsidian .cm-header {
+  color: var(--vsc-heading);
+  font-weight: 700;
+}
+
+/* # 标记符：与标题同色（修正「# 颜色没显示」） */
+.markdown-source-view.mod-cm6 .cm-formatting-header,
+.cm-s-obsidian .cm-formatting-header,
+.cm-s-obsidian .cm-formatting-header-1,
+.cm-s-obsidian .cm-formatting-header-2,
+.cm-s-obsidian .cm-formatting-header-3,
+.cm-s-obsidian .cm-formatting-header-4,
+.cm-s-obsidian .cm-formatting-header-5,
+.cm-s-obsidian .cm-formatting-header-6 {
+  color: var(--vsc-heading);
+  font-weight: 700;
+}
+
+/* ---------- 4.5 行内格式 ----------
+ * VS Code 2026：markup.bold / markup.italic 均为 #C9D1D9/#1F2328（正文色），
+ * 靠字重/倾斜区分，【不再使用彩色】。这与 Dark+ 的蓝色粗体、紫色斜体不同。
+ */
+.markdown-rendered strong,
+.cm-s-obsidian .cm-strong {
+  color: var(--vsc-bold);
+  font-weight: 700;
+}
+
+.markdown-rendered em,
+.cm-s-obsidian .cm-em {
+  color: var(--vsc-italic);
+  font-style: italic;
+}
+
+/* markup.strikethrough 只定义 fontStyle，无 foreground —— 保持正文色 */
+.markdown-rendered del,
+.markdown-rendered s,
+.cm-s-obsidian .cm-strikethrough {
+  color: var(--text-normal);
+  text-decoration: line-through;
+}
+
+.markdown-rendered mark,
+.cm-s-obsidian .cm-highlight {
+  background-color: var(--vsc-hl-bg);
+  color: var(--text-normal);
+  padding: 0 0.15em;
+  border-radius: 2px;
+}
+
+/* Obsidian 1.14+ 彩色高亮：映射到 2026 调色板 */
+.cm-s-obsidian .cm-highlight.cm-highlight-red,
+.markdown-rendered mark.cm-highlight-red { background-color: #FFA19840; }
+.cm-s-obsidian .cm-highlight.cm-highlight-orange,
+.markdown-rendered mark.cm-highlight-orange { background-color: #FFA65740; }
+.cm-s-obsidian .cm-highlight.cm-highlight-green,
+.markdown-rendered mark.cm-highlight-green { background-color: #7EE78740; }
+.cm-s-obsidian .cm-highlight.cm-highlight-blue,
+.markdown-rendered mark.cm-highlight-blue { background-color: #79C0FF40; }
+.cm-s-obsidian .cm-highlight.cm-highlight-purple,
+.markdown-rendered mark.cm-highlight-purple { background-color: #D2A8FF40; }
+
+/* ---------- 4.6 行内代码 ----------
+ * markup.inline.raw => #79C0FF / #0550AE
+ *
+ * ⚠ 级联注意：Obsidian 内置规则写作 `.cm-s-obsidian span.cm-inline-code`
+ *   （特指度 0,2,1），会压制本层原本的 `.cm-s-obsidian .cm-inline-code`（0,2,0）。
+ *   两者冲突的属性是 color 与 background-color —— Obsidian 把它们指向
+ *   `--code-normal` / `--code-background`，而 `--code-normal` 同时供代码块使用
+ *   （VS Code 代码块文字 = editor.foreground），不能整体改成蓝色，
+ *   因此这里只能提高选择器特指度。`body` 前缀 => 0,2,2，稳定高于内置规则。
+ */
+.markdown-rendered code,
+.cm-s-obsidian .cm-inline-code,
+body .cm-s-obsidian span.cm-inline-code {
+  color: var(--vsc-inline-code);
+  background-color: var(--vsc-codeblock-bg);
+  font-family: var(--font-monospace);
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* ---------- 4.7 代码块 ---------- */
+.markdown-rendered pre,
+.cm-s-obsidian .HyperMD-codeblock-bg {
+  background-color: var(--vsc-codeblock-bg);
+  border: 1px solid var(--vsc-border);
+  border-radius: 4px;
+}
+
+.markdown-rendered pre code {
+  background-color: transparent;
+  color: var(--vsc-fg-primary);
+  padding: 0;
+  font-size: 0.9em;
+}
+
+/* 代码块语法高亮 —— 对齐 2026 主题语义色
+ * 注意：2026-dark/light.json 的 `comment` 规则只给前景色 #8B949E / #6E7781，
+ * 【没有 fontStyle】。Dark+/Dark Modern 时代的斜体注释在 2026 中已取消。 */
+.markdown-rendered pre code .cm-comment,
+.cm-s-obsidian .cm-comment {
+  color: var(--vsc-comment);
+  font-style: normal;
+}
+
+.cm-s-obsidian .cm-keyword,
+.cm-s-obsidian .cm-operator.keyword,
+.markdown-source-view.mod-cm6 .cm-keyword {
+  color: var(--vsc-keyword);
+}
+
+.cm-s-obsidian .cm-string,
+.cm-s-obsidian .cm-string-2 {
+  color: var(--vsc-string);
+}
+
+.cm-s-obsidian .cm-number,
+.cm-s-obsidian .cm-atom {
+  color: var(--vsc-constant);
+}
+
+.cm-s-obsidian .cm-def,
+.cm-s-obsidian .cm-variable-2 {
+  color: var(--vsc-function);
+}
+
+.cm-s-obsidian .cm-type,
+.cm-s-obsidian .cm-builtin,
+.cm-s-obsidian .cm-class {
+  color: var(--vsc-constant);
+}
+
+.cm-s-obsidian .cm-variable,
+.cm-s-obsidian .cm-variable-3,
+.cm-s-obsidian .cm-property {
+  color: var(--vsc-variable);
+}
+
+.cm-s-obsidian .cm-attribute,
+.cm-s-obsidian .cm-operator {
+  color: var(--vsc-keyword);
+}
+
+.cm-s-obsidian .cm-tag {
+  color: var(--vsc-tag);
+}
+
+/* ---------- 4.8 引用块 ----------
+ * markup.quote => #7EE787 / #116329（引用【文字】为绿色，这是 2026 主题的行为）
+ * textBlockQuote.background => #242526 / #EAEAEA
+ */
+.markdown-rendered blockquote,
+.cm-s-obsidian .HyperMD-quote {
+  background-color: var(--vsc-quote-bg);
+  border-left: 3px solid var(--vsc-border);
+  color: var(--vsc-quote-fg);
+  padding-left: 1em;
+  border-radius: 0 3px 3px 0;
+}
+
+/* 引用块内的行内代码保持自身色 */
+.markdown-rendered blockquote code,
+.cm-s-obsidian .HyperMD-quote .cm-inline-code {
+  color: var(--vsc-inline-code);
+}
+
+/* ---------- 4.9 链接 ----------
+ * 2026 主题里 Markdown 链接文字走 `string.other.link` = #A5D6FF / #0A3069，
+ * 与工作台 UI 链接（textLink.foreground = #48A0C7 / #0069CC）不是同一个色，
+ * 故此处用 --vsc-md-link（见 1.6 / 2.6）。
+ * 同样需要 `body` 前缀对抗 Obsidian 内置的 `.cm-s-obsidian span.cm-hmd-internal-link`。
+ */
+.markdown-rendered a.internal-link,
+.cm-s-obsidian .cm-hmd-internal-link,
+body .cm-s-obsidian span.cm-hmd-internal-link {
+  color: var(--vsc-md-link);
+  text-decoration: none;
+}
+
+.markdown-rendered a.internal-link:hover,
+.cm-s-obsidian .cm-hmd-internal-link:hover,
+body .cm-s-obsidian span.cm-hmd-internal-link:hover {
+  color: var(--vsc-md-link);
+  text-decoration: underline;
+}
+
+/* 外部链接：2026 主题 markup.underline 只给下划线、不给前景色，
+ * 链接文字本身的颜色来自 string.other.link（同 --vsc-md-link）。 */
+.markdown-rendered a.external-link,
+.cm-s-obsidian .cm-link,
+body .cm-s-obsidian span.cm-link {
+  color: var(--vsc-md-link);
+}
+
+.markdown-rendered a.external-link:hover,
+body .cm-s-obsidian span.cm-link:hover {
+  color: var(--vsc-md-link);
+  text-decoration: underline;
+}
+
+.markdown-rendered a.is-unresolved {
+  color: var(--link-unresolved-color);
+  opacity: 1;
+}
+
+/* ---------- 4.10 列表 ----------
+ * punctuation.definition.list.begin.markdown => #FFA657 / #953800
+ */
+.markdown-rendered ul > li::marker,
+.markdown-rendered ol > li::marker {
+  color: var(--vsc-list-bullet);
+}
+
+.cm-s-obsidian .cm-formatting-list,
+.cm-s-obsidian .list-bullet {
+  color: var(--vsc-list-bullet);
+}
+
+/* ---------- 4.11 任务列表 ---------- */
+.markdown-rendered input[type="checkbox"],
+.markdown-source-view.mod-cm6 .task-list-item-checkbox {
+  accent-color: var(--checkbox-color);
+  border-color: var(--vsc-border-input);
+}
+
+.cm-s-obsidian .HyperMD-task-line[data-task="x"],
+.cm-s-obsidian .HyperMD-task-line[data-task="X"] {
+  color: var(--checklist-done-color);
+  text-decoration: line-through;
+}
+
+/* ---------- 4.12 标签 ---------- */
+.markdown-rendered a.tag,
+.cm-s-obsidian .cm-hashtag {
+  color: var(--tag-color);
+  background-color: var(--tag-background);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.markdown-rendered a.tag:hover {
+  background-color: var(--tag-background-hover);
+  color: var(--tag-color);
+}
+
+/* ---------- 4.13 分隔线 ----------
+ * VS Code：`---` 是【文本】，走 meta.separator => #79C0FF + bold。
+ * Obsidian：光标不在该行时把它渲染成 <hr> 元素（线条），故分两种情形处理：
+ *   · 编辑器里以文本形式出现时（.cm-hr）→ 与 VS Code 完全一致：蓝 + 粗体
+ *   · 阅读视图的 <hr> → 只能画线；用 --vsc-hr（取自 2026 的 textSeparator/边框色阶），
+ *     这是 Obsidian 渲染模型的必要妥协，已在 README 记录。
+ */
+body .cm-s-obsidian .cm-hr {
+  color: var(--vsc-heading);
+  font-weight: 700;
+}
+
+.markdown-rendered hr {
+  border: none;
+  border-top: 1px solid var(--hr-color);
+  margin: 1.5em 0;
+}
+
+/* ---------- 4.14 表格 ---------- */
+.markdown-rendered table {
+  border-collapse: collapse;
+  border: 1px solid var(--table-border-color);
+  font-size: 0.95em;
+}
+
+.markdown-rendered th {
+  background-color: var(--table-header-background);
+  color: var(--text-normal);
+  font-weight: 600;
+  border: 1px solid var(--table-border-color);
+  padding: 0.45em 0.7em;
+}
+
+.markdown-rendered td {
+  border: 1px solid var(--table-border-color);
+  padding: 0.45em 0.7em;
+}
+
+.markdown-rendered tbody tr:nth-child(even) {
+  background-color: var(--table-row-even-background);
+}
+
+.markdown-rendered tbody tr:nth-child(odd) {
+  background-color: var(--table-row-odd-background);
+}
+
+/* ---------- 4.15 数学公式 ---------- */
+.markdown-rendered .math,
+.cm-s-obsidian .HyperMD-math,
+mjx-container {
+  color: var(--vsc-variable-other);
+  font-family: var(--font-monospace);
+}
+
+/* ---------- 4.16 属性（frontmatter） ---------- */
+.markdown-source-view.mod-cm6 .cm-hmd-frontmatter,
+.markdown-rendered .frontmatter-container {
+  color: var(--vsc-entity);
+  font-family: var(--font-monospace);
+  font-size: 0.9em;
+}
+
+.frontmatter-container .frontmatter-section-label {
+  color: var(--vsc-constant);
+  font-weight: 600;
+}
+
+/* ---------- 4.17 注释 ---------- */
+.cm-s-obsidian .cm-comment.cm-hmd-comment,
+.cm-s-obsidian .cm-comment-start,
+.cm-s-obsidian .cm-comment-end {
+  color: var(--vsc-comment);
+  opacity: 0.75;
+}
+
+/* ---------- 4.18 Markdown 格式标记 ----------
+ * 与 VS Code 完全一致：VS Code 按语义 scope 着色，格式标记继承其内容的颜色
+ * （** → markup.bold；* → markup.italic；# → markup.heading；` → markup.inline.raw；
+ *   > → markup.quote；[[ ]] → 链接色），不存在「淡化标记符」的概念，
+ * 因此这里让标记与内容同色，不做弱化。
+ *
+ * ⚠ 级联注意（本主题曾经的 bug 根源）：
+ *   Obsidian 内置规则是 `.cm-s-obsidian span.cm-formatting-quote`（特指度 0,2,1），
+ *   本层若只写 `.cm-s-obsidian .cm-formatting-quote`（0,2,0）就会被压制，
+ *   结果是 `>` 显示为 `--text-faint`（灰），而不是 2026 主题的绿色 —— 这正是
+ *   「引用符号颜色不对」的原因。
+ *   这里统一加 `body` 前缀 => 0,2,2，稳压内置规则。
+ *   刻意【不】使用 !important：Obsidian 另有
+ *     `.cm-s-obsidian .hmd-inactive-line span.cm-formatting-quote { color: transparent }`（0,3,1），
+ *   用于在光标不在该行时隐藏 `>`，属于 Live Preview 的正常行为，应当保留。
+ */
+.cm-s-obsidian .cm-formatting-strong,
+body .cm-s-obsidian span.cm-formatting-strong {
+  color: var(--vsc-bold);
+}
+
+.cm-s-obsidian .cm-formatting-em,
+body .cm-s-obsidian span.cm-formatting-em {
+  color: var(--vsc-italic);
+}
+
+.cm-s-obsidian .cm-formatting-code,
+.cm-s-obsidian .cm-formatting-code-block,
+body .cm-s-obsidian span.cm-formatting-code {
+  color: var(--vsc-inline-code);
+}
+
+.cm-s-obsidian .cm-formatting-link,
+.cm-s-obsidian .cm-formatting-link-string,
+body .cm-s-obsidian span.cm-formatting-link,
+body .cm-s-obsidian span.cm-formatting-link-string {
+  color: var(--vsc-md-link);
+}
+
+.cm-s-obsidian .cm-formatting-quote,
+body .cm-s-obsidian span.cm-formatting-quote {
+  color: var(--vsc-quote-fg);
+}
+
+/* ==========================================================================
+ * 第 5 部分：Callout 配色
+ * --------------------------------------------------------------------------
+ * 色相取自 2026 主题调色板：
+ *   蓝 #79C0FF / #0550AE（信息）、绿 #7EE787 / #116329（成功）、
+ *   黄 #E5BA7D / #667309（警告）、红 #F48771 / #AD0707（危险）、
+ *   橙 #FFA657 / #953800（注意）、紫 #D2A8FF / #8250DF（示例）、
+ *   灰 #8B949E / #6E7781（引文）
+ * ========================================================================== */
+
+/* ---------- 5.1 暗色 Callout ---------- */
+.theme-dark .callout {
+  --callout-blend-mode: normal;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--vsc-border);
+  background-color: #242526;
+}
+
+.theme-dark .callout-title {
+  color: var(--callout-title-color, var(--text-normal));
+  font-weight: 600;
+}
+
+/* note / info —— 蓝 */
+.theme-dark .callout[data-callout="note"],
+.theme-dark .callout[data-callout="info"] {
+  --callout-color: 121, 192, 255;
+  --callout-title-color: #79C0FF;
+  border-left: 3px solid #79C0FF;
+}
+/* abstract / summary / tldr —— 浅蓝 */
+.theme-dark .callout[data-callout="abstract"],
+.theme-dark .callout[data-callout="summary"],
+.theme-dark .callout[data-callout="tldr"] {
+  --callout-color: 165, 214, 255;
+  --callout-title-color: #A5D6FF;
+  border-left: 3px solid #A5D6FF;
+}
+/* tip / hint / important —— 绿 */
+.theme-dark .callout[data-callout="tip"],
+.theme-dark .callout[data-callout="hint"],
+.theme-dark .callout[data-callout="important"] {
+  --callout-color: 126, 231, 135;
+  --callout-title-color: #7EE787;
+  border-left: 3px solid #7EE787;
+}
+/* success / check / done —— 绿 */
+.theme-dark .callout[data-callout="success"],
+.theme-dark .callout[data-callout="check"],
+.theme-dark .callout[data-callout="done"] {
+  --callout-color: 115, 201, 145;
+  --callout-title-color: #73C991;
+  border-left: 3px solid #73C991;
+}
+/* question / help / faq —— 黄 */
+.theme-dark .callout[data-callout="question"],
+.theme-dark .callout[data-callout="help"],
+.theme-dark .callout[data-callout="faq"] {
+  --callout-color: 229, 186, 125;
+  --callout-title-color: #E5BA7D;
+  border-left: 3px solid #E5BA7D;
+}
+/* warning / caution / attention —— 琥珀 */
+.theme-dark .callout[data-callout="warning"],
+.theme-dark .callout[data-callout="caution"],
+.theme-dark .callout[data-callout="attention"] {
+  --callout-color: 204, 167, 0;
+  --callout-title-color: #CCA700;
+  border-left: 3px solid #CCA700;
+}
+/* failure / fail / missing —— 浅红 */
+.theme-dark .callout[data-callout="failure"],
+.theme-dark .callout[data-callout="fail"],
+.theme-dark .callout[data-callout="missing"] {
+  --callout-color: 255, 161, 152;
+  --callout-title-color: #FFA198;
+  border-left: 3px solid #FFA198;
+}
+/* danger / error —— 红 */
+.theme-dark .callout[data-callout="danger"],
+.theme-dark .callout[data-callout="error"] {
+  --callout-color: 244, 135, 113;
+  --callout-title-color: #F48771;
+  border-left: 3px solid #F48771;
+}
+/* bug —— 橙 */
+.theme-dark .callout[data-callout="bug"] {
+  --callout-color: 255, 166, 87;
+  --callout-title-color: #FFA657;
+  border-left: 3px solid #FFA657;
+}
+/* example —— 紫 */
+.theme-dark .callout[data-callout="example"] {
+  --callout-color: 210, 168, 255;
+  --callout-title-color: #D2A8FF;
+  border-left: 3px solid #D2A8FF;
+}
+/* quote / cite —— 灰 */
+.theme-dark .callout[data-callout="quote"],
+.theme-dark .callout[data-callout="cite"] {
+  --callout-color: 139, 148, 158;
+  --callout-title-color: #8B949E;
+  border-left: 3px solid #8B949E;
+}
+/* todo —— 蓝 */
+.theme-dark .callout[data-callout="todo"] {
+  --callout-color: 121, 192, 255;
+  --callout-title-color: #79C0FF;
+  border-left: 3px solid #79C0FF;
+}
+
+/* ---------- 5.2 亮色 Callout ---------- */
+.theme-light .callout {
+  --callout-blend-mode: normal;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--vsc-border-menu);
+  background-color: var(--vsc-quote-bg);
+}
+
+.theme-light .callout-title {
+  color: var(--callout-title-color, var(--text-normal));
+  font-weight: 600;
+}
+
+.theme-light .callout[data-callout="note"],
+.theme-light .callout[data-callout="info"] {
+  --callout-color: 5, 80, 174;
+  --callout-title-color: #0550AE;
+  border-left: 3px solid #0550AE;
+}
+.theme-light .callout[data-callout="abstract"],
+.theme-light .callout[data-callout="summary"],
+.theme-light .callout[data-callout="tldr"] {
+  --callout-color: 10, 48, 105;
+  --callout-title-color: #0A3069;
+  border-left: 3px solid #0A3069;
+}
+.theme-light .callout[data-callout="tip"],
+.theme-light .callout[data-callout="hint"],
+.theme-light .callout[data-callout="important"] {
+  --callout-color: 17, 99, 41;
+  --callout-title-color: #116329;
+  border-left: 3px solid #116329;
+}
+.theme-light .callout[data-callout="success"],
+.theme-light .callout[data-callout="check"],
+.theme-light .callout[data-callout="done"] {
+  --callout-color: 88, 124, 12;
+  --callout-title-color: #587C0C;
+  border-left: 3px solid #587C0C;
+}
+.theme-light .callout[data-callout="question"],
+.theme-light .callout[data-callout="help"],
+.theme-light .callout[data-callout="faq"] {
+  --callout-color: 102, 115, 9;
+  --callout-title-color: #667309;
+  border-left: 3px solid #667309;
+}
+.theme-light .callout[data-callout="warning"],
+.theme-light .callout[data-callout="caution"],
+.theme-light .callout[data-callout="attention"] {
+  --callout-color: 182, 149, 0;
+  --callout-title-color: #8A6D00;
+  border-left: 3px solid #B69500;
+}
+.theme-light .callout[data-callout="failure"],
+.theme-light .callout[data-callout="fail"],
+.theme-light .callout[data-callout="missing"] {
+  --callout-color: 130, 7, 30;
+  --callout-title-color: #82071E;
+  border-left: 3px solid #82071E;
+}
+.theme-light .callout[data-callout="danger"],
+.theme-light .callout[data-callout="error"] {
+  --callout-color: 173, 7, 7;
+  --callout-title-color: #AD0707;
+  border-left: 3px solid #AD0707;
+}
+.theme-light .callout[data-callout="bug"] {
+  --callout-color: 149, 56, 0;
+  --callout-title-color: #953800;
+  border-left: 3px solid #953800;
+}
+.theme-light .callout[data-callout="example"] {
+  --callout-color: 130, 80, 223;
+  --callout-title-color: #8250DF;
+  border-left: 3px solid #8250DF;
+}
+.theme-light .callout[data-callout="quote"],
+.theme-light .callout[data-callout="cite"] {
+  --callout-color: 110, 119, 129;
+  --callout-title-color: #57606A;
+  border-left: 3px solid #8C959F;
+}
+.theme-light .callout[data-callout="todo"] {
+  --callout-color: 5, 80, 174;
+  --callout-title-color: #0550AE;
+  border-left: 3px solid #0550AE;
+}
+
+/* ==========================================================================
+ * 第 6 部分：界面组件
+ * ========================================================================== */
+
+/* ---------- 6.1 侧栏 ---------- */
+.workspace-leaf-content[data-type="file-explorer"],
+.workspace-leaf-content[data-type="search"],
+.workspace-leaf-content[data-type="bookmarks"],
+.workspace-leaf-content[data-type="tag"],
+.workspace-leaf-content[data-type="outline"],
+.workspace-leaf-content[data-type="backlink"],
+.workspace-leaf-content[data-type="outgoing-link"],
+.workspace-leaf-content[data-type="graph"] {
+  background-color: var(--vsc-bg-sidebar);
+}
+
+.nav-file-title,
+.nav-folder-title {
+  color: var(--vsc-fg-ui);
+  border-radius: 3px;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover {
+  background-color: var(--vsc-list-hover);
+}
+
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+  background-color: var(--vsc-list-inactive);
+  color: var(--vsc-list-active-fg);
+}
+
+/* ---------- 6.2 标签页 ---------- */
+.workspace-tab-header-container {
+  background-color: var(--vsc-bg-tab-inactive);
+  border-bottom: 1px solid var(--vsc-border);
+}
+
+.workspace-tab-header {
+  color: var(--tab-text-color);
+  border-radius: 0;
+}
+
+.workspace-tab-header.is-active {
+  background-color: var(--vsc-bg-tab-active);
+  color: var(--tab-text-color-active);
+}
+
+.workspace-tab-header.is-active::before,
+.workspace-tab-header.is-active::after {
+  box-shadow: none;
+}
+
+.workspace-tab-header-container-inner {
+  margin-top: 0;
+}
+
+/* VS Code 的活动标签顶部有一条强调色指示线（tab.activeBorderTop） */
+.workspace-tab-header.is-active .workspace-tab-header-inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--vsc-accent);
+}
+
+/* ---------- 6.3 状态栏 ----------
+ * 2026-dark: 背景 #191A1B，前景 #8C8C8C（不再是蓝色条）
+ * 2026-light: 背景 #FAFAFD，前景 #606060
+ */
+.status-bar {
+  background-color: var(--vsc-bg-sidebar);
+  color: var(--vsc-fg-secondary);
+  border-top: 1px solid var(--vsc-border);
+}
+
+.status-bar-item {
+  color: var(--vsc-fg-secondary);
+}
+
+.status-bar-item:hover {
+  background-color: var(--vsc-bg-menubar-sel);
+}
+
+/* ---------- 6.4 活动栏（左侧图标条） ---------- */
+.workspace-ribbon {
+  background-color: var(--vsc-bg-activitybar);
+  border-right: 1px solid var(--vsc-border);
+}
+
+.workspace-ribbon .clickable-icon {
+  color: var(--vsc-fg-secondary);
+}
+
+.workspace-ribbon .clickable-icon:hover {
+  color: var(--vsc-fg-ui);
+  background-color: transparent;
+}
+
+.workspace-ribbon .clickable-icon.is-active {
+  color: var(--vsc-fg-ui);
+  background-color: var(--vsc-list-inactive);
+}
+
+/* 活动栏左侧的激活指示条（activityBar.activeBorder） */
+.workspace-ribbon .clickable-icon.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2px;
+  background-color: var(--vsc-fg-primary);
+}
+
+/* ---------- 6.5 标题栏 ---------- */
+.titlebar {
+  background-color: var(--vsc-bg-titlebar);
+  color: var(--titlebar-text-color);
+  border-bottom: 1px solid var(--vsc-border);
+}
+
+.titlebar-text {
+  color: var(--titlebar-text-color);
+}
+
+/* ---------- 6.6 搜索 ---------- */
+.search-result-file-title {
+  color: var(--vsc-constant);
+}
+
+.search-result-file-matched-text,
+.search-result-file-match-replace-button {
+  background-color: var(--vsc-hl-bg);
+  color: var(--text-normal);
+}
+
+.search-input-container input {
+  background-color: var(--vsc-bg-input);
+  border: 1px solid var(--vsc-border-input);
+  color: var(--text-normal);
+  border-radius: 2px;
+}
+
+.search-input-container input:focus {
+  border-color: var(--vsc-focus);
+  box-shadow: none;
+}
+
+/* ---------- 6.7 输入框 / 下拉框 / 按钮 ---------- */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  background-color: var(--vsc-bg-input);
+  border: 1px solid var(--vsc-border-input);
+  color: var(--text-normal);
+  border-radius: 2px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--vsc-focus);
+  box-shadow: none;
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--vsc-fg-placeholder);
+}
+
+.dropdown {
+  background-color: var(--vsc-bg-dropdown);
+  border-color: var(--vsc-border-input);
+}
+
+button:not(.clickable-icon) {
+  background-color: var(--vsc-button);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 2px;
+}
+
+button:not(.clickable-icon):hover {
+  background-color: var(--vsc-button-hover);
+}
+
+button.mod-cta {
+  background-color: var(--vsc-button);
+  color: #FFFFFF;
+}
+
+button.mod-cta:hover {
+  background-color: var(--vsc-button-hover);
+}
+
+*:focus-visible {
+  outline: 1px solid var(--vsc-focus);
+  outline-offset: -1px;
+}
+
+/* ---------- 6.8 命令面板 / 弹窗 ---------- */
+.prompt,
+.modal {
+  background-color: var(--modal-background);
+  border: 1px solid var(--modal-border-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px var(--vsc-shadow);
+}
+
+.suggestion-item.is-selected {
+  background-color: var(--vsc-list-active-bg);
+  color: var(--vsc-list-active-fg);
+}
+
+.suggestion-item {
+  border-radius: 2px;
+}
+
+.suggestion-highlight {
+  color: var(--vsc-highlight);
+}
+
+.suggestion-item.is-selected .suggestion-highlight {
+  color: var(--vsc-list-active-fg);
+}
+
+/* ---------- 6.9 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--vsc-scrollbar);
+  border-radius: 0;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--vsc-scrollbar-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--vsc-scrollbar-act);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------- 6.10 图谱 ---------- */
+.graph-view.color-fill {
+  color: var(--graph-node);
+}
+
+.graph-view.color-fill-focused {
+  color: var(--graph-node-focused);
+}
+
+.graph-view.color-fill-tag {
+  color: var(--graph-node-tag);
+}
+
+.graph-view.color-fill-attachment {
+  color: var(--graph-node-attachment);
+}
+
+.graph-view.color-fill-unresolved {
+  color: var(--graph-node-unresolved);
+}
+
+.graph-view.color-line {
+  color: var(--graph-line);
+}
+
+.graph-view.color-text {
+  color: var(--graph-text);
+}
+
+.graph-view.color-arrow {
+  color: var(--graph-text);
+}
+
+/* ---------- 6.11 Bases 视图 ---------- */
+.bases-view {
+  background-color: var(--background-primary);
+}
+
+.bases-table-container table {
+  border-collapse: collapse;
+}
+
+.bases-table-container th {
+  background-color: var(--table-header-background);
+  color: var(--text-normal);
+  font-weight: 600;
+  border: 1px solid var(--table-border-color);
+}
+
+.bases-table-container td {
+  border: 1px solid var(--table-border-color);
+}
+
+.bases-table-container tr:hover td {
+  background-color: var(--vsc-list-hover);
+}
+
+.bases-cards-item {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+
+.bases-kanban-column {
+  background-color: var(--background-secondary);
+}
+
+/* ---------- 6.12 Canvas ---------- */
+.canvas {
+  background-color: var(--canvas-background);
+}
+
+.canvas-node-content {
+  border-radius: 4px;
+}
+
+.canvas-node.is-selected .canvas-node-container,
+.canvas-node.is-focused .canvas-node-container {
+  border-color: var(--vsc-focus);
+  box-shadow: 0 0 0 1px var(--vsc-focus);
+}
+
+/* ---------- 6.13 元数据 / 属性面板 ---------- */
+.metadata-container {
+  background-color: var(--background-primary-alt);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+
+.metadata-property-key {
+  color: var(--vsc-constant);
+  font-weight: 600;
+}
+
+.metadata-property-icon {
+  color: var(--vsc-entity);
+}
+
+/* ---------- 6.14 标签面板 ---------- */
+.tag-pane-tag-count {
+  color: var(--vsc-fg-secondary);
+}
+
+/* ---------- 6.15 引用计数 / 反向链接 ---------- */
+.workspace-leaf-content[data-type="backlink"] .tree-item-self:hover,
+.workspace-leaf-content[data-type="outgoing-link"] .tree-item-self:hover {
+  background-color: var(--vsc-list-hover);
+}
+
+/* ---------- 6.16 分隔与强调 ---------- */
+.tree-item-self.is-active {
+  background-color: var(--vsc-list-inactive);
+}
+
+/* ---------- 6.17 嵌入内容边框 ---------- */
+.markdown-embed {
+  border-left: 3px solid var(--vsc-border);
+  border-radius: 0 3px 3px 0;
+}
+
+.markdown-embed-title {
+  color: var(--vsc-heading);
+  font-weight: 600;
+}
+
+/* ---------- 6.18 提示气泡 ---------- */
+.tooltip {
+  background-color: var(--vsc-bg-widget);
+  border: 1px solid var(--vsc-border);
+  color: var(--text-normal);
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* ==========================================================================
+ * 第 7 部分：细节修正
+ * ========================================================================== */
+
+/* Obsidian 默认给活动标签加底部圆角，VS Code 是全直角 */
+.workspace-tab-header.is-active .workspace-tab-header-inner {
+  border-radius: 0;
+}
+
+/* 文件树缩进线颜色 */
+.nav-folder-children {
+  border-left-color: var(--vsc-border);
+}
+
+/* 统一圆角为 VS Code 的 3-4px 规格 */
+.workspace-leaf,
+.workspace-tabs,
+.prompt,
+.suggestion-item,
+.modal {
+  border-radius: 3px;
+}
+
+/* 侧栏底色 */
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split {
+  background-color: var(--vsc-bg-sidebar);
+}
+
+/* 顶部功能区与侧栏同色 */
+.workspace-leaf-content[data-type="file-explorer"] .nav-header {
+  background-color: var(--vsc-bg-sidebar);
+}
+
+/* 设置面板 */
+.vertical-tab-nav-item.is-active {
+  background-color: var(--vsc-list-inactive);
+  color: var(--text-normal);
+  border-left: 2px solid var(--vsc-accent);
+}
+
+.vertical-tab-nav-item:hover {
+  background-color: var(--vsc-list-hover);
+}
+
+/* 当前行高亮 —— 对应 VS Code 的 editor.lineHighlightBackground
+ * 2026-dark: #242526；2026-light: #EAEAEA40
+ * 如不需要，可用 CSS 片段覆盖为 transparent
+ */
+.markdown-source-view.mod-cm6 .cm-active.cm-line {
+  background-color: var(--vsc-line-highlight);
+}
