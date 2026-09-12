@@ -1,3 +1,5 @@
+[English](README.md) | [简体中文](README.zh.md)
+
 # VS Code Theme for Obsidian
 
 把 VS Code 官方默认主题的配色（2026 深色）搬进 Obsidian，支持**暗色 / 亮色双模式**。

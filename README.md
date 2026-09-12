@@ -1,3 +1,5 @@
+[English](README.md) | [简体中文](README.zh.md)
+
 # VS Code Theme for Obsidian
 
 Ports the official VS Code default color scheme (Dark 2026) into Obsidian, with support for **both dark and light mode**.

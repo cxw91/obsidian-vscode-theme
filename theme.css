@@ -870,10 +870,17 @@ body .cm-s-obsidian .cm-hr {
   background-color: var(--table-row-odd-background);
 }
 
-/* ---------- 4.15 数学公式 ---------- */
+/* ---------- 4.15 数学公式 ----------
+ * <mjx-container> 是 MathJax 注册的自定义元素，不在 HTML 已知标签表内，
+ * 直接写类型选择器会被 CSS linter 判为 "Unexpected unknown type selector"。
+ * 改用 MathJax 自身输出在容器上的 [jax] 属性（其官方样式即写作
+ *   mjx-container[jax="CHTML"][display="true"]
+ * 定位该元素），命中节点与类型选择器完全一致，效果等价且不触发告警。
+ */
 .markdown-rendered .math,
 .cm-s-obsidian .HyperMD-math,
-mjx-container {
+.markdown-rendered [jax],
+.cm-s-obsidian [jax] {
   color: var(--vsc-variable-other);
   font-family: var(--font-monospace);
 }
