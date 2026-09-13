@@ -107,9 +107,23 @@
   --vsc-diff-changed:   #FFA657;  /* markup.changed                 */
 
   /* --- 1.7 Markdown 专属 ------------------------------------------------- */
-  --vsc-quote-bg:       #242526;  /* textBlockQuote.background      */
+  --vsc-quote-bg:       #242526;  /* textBlockQuote.background —— 仅用于
+                                   * Callout / 表格偶数行 / background-primary-alt，
+                                   * 引用块另见下方 --vsc-blockquote-bg      */
   --vsc-quote-border:   #2A2B2C;  /* textBlockQuote.border          */
-  --vsc-codeblock-bg:   #242526;  /* textCodeBlock.background       */
+  /* ⚠ 偏离官方值：官方 textCodeBlock.background = textBlockQuote.background = #242526，
+   * 且两者都与 editor.lineHighlightBackground（光标行）同为 #242526。
+   * VS Code 编辑器内的 fenced code / 引用块都没有「整块底色 + 光标行高亮」叠加的
+   * 场景，故三者同值无害；Obsidian 会给它们刷整块底色，于是出现
+   * 「普通文本行的光标行看起来像代码块/引用块」与「光标进入其中后无法定位」两种误导。
+   * 下调为 #1B1C1D —— 取 #121314（编辑器底）与 #242526（光标行）的几何中点，
+   * 与两者各差约 9 级，双向可辨。
+   * 注意：该变量同时供行内代码背景使用（见 4.6）。 */
+  --vsc-codeblock-bg:   #1B1C1D;
+  /* 引用块专用底色，理由同上（官方 textBlockQuote.background = #242526）。
+   * 刻意与 --vsc-quote-bg 分离：后者还供 Callout、表格偶数行、
+   * --background-primary-alt 使用，一并下调会扩大偏离官方值的范围。 */
+  --vsc-blockquote-bg:  #1B1C1D;
   --vsc-preformat-bg:   #262626;  /* textPreformat.background       */
   --vsc-preformat-fg:   #8C8C8C;  /* textPreformat.foreground       */
   --vsc-hr:             #2A2B2C;
@@ -190,7 +204,15 @@
   --vsc-line-number-act:#202020;  /* editorLineNumber.activeForeground */
   --vsc-indent-guide:   #F7F7F740;/* editorIndentGuide.background1  */
   --vsc-indent-active:  #EEEEEE;  /* editorIndentGuide.activeBackground1 */
-  --vsc-line-highlight: #EAEAEA40;/* editor.lineHighlightBackground */
+  --vsc-line-highlight: #E5E5E5;  /* ⚠ 偏离官方值。官方 editor.lineHighlightBackground
+                                   * = #EAEAEA40（半透明，叠 #FFFFFF 白底后约 #FBFBFB），
+                                   * 会浅于代码块/引用块底色 #EAEAEA。
+                                   * 用户要求方向相反：光标行更深，代码块与引用块更浅。
+                                   * 改为不透明 #E5E5E5（约 90% 黑度），比 #EAEAEA
+                                   * （约 92% 黑度）更暗，符合「光标行最深」的层级：
+                                   * 光标行 #E5E5E5 < 代码块/引用块 #EAEAEA < 页面底 #FFFFFF。
+                                   * 注：改为不透明是为使该层级稳定可预期，避免半透明叠加
+                                   * 导致实际深浅随底层变化。 */
   --vsc-whitespace:     #60606040;/* editorWhitespace.foreground    */
 
   /* --- 2.6 语法高亮 Token（2026-light tokenColors）---------------------
@@ -220,9 +242,14 @@
   --vsc-diff-changed:   #953800;  /* markup.changed                 */
 
   /* --- 2.7 Markdown 专属 ------------------------------------------------- */
-  --vsc-quote-bg:       #EAEAEA;  /* textBlockQuote.background      */
+  --vsc-quote-bg:       #EAEAEA;  /* textBlockQuote.background —— 仅用于
+                                   * Callout / 表格偶数行 / background-primary-alt，
+                                   * 引用块另见下方 --vsc-blockquote-bg      */
   --vsc-quote-border:   #F0F1F2;  /* textBlockQuote.border          */
   --vsc-codeblock-bg:   #EAEAEA;  /* textCodeBlock.background       */
+  --vsc-blockquote-bg:  #EAEAEA;  /* textBlockQuote.background —— 未偏离官方值。
+                                   * 与 --vsc-quote-bg 分离仅为便于单独调整，
+                                   * 当前取值一致。                          */
   --vsc-preformat-bg:   #ECECEC;  /* textPreformat.background       */
   --vsc-preformat-fg:   #606060;  /* textPreformat.foreground       */
   --vsc-hr:             #F0F1F2;
@@ -344,7 +371,7 @@
    *   `.cm-s-obsidian span.cm-quote { color: var(--blockquote-color) }`
    * 若不设置，引用文字会退回 Obsidian 默认色（正文色），而不是 VS Code 的绿色。 */
   --blockquote-color:            var(--vsc-quote-fg);
-  --blockquote-background-color: var(--vsc-quote-bg);
+  --blockquote-background-color: var(--vsc-blockquote-bg);
   --blockquote-border-color:     var(--vsc-quote-border);
   --blockquote-font-style:       normal;   /* 阅读视图 */
   --blockquote-style:            normal;   /* 编辑器 Live Preview */
@@ -481,7 +508,7 @@
 
   /* 引用块（同暗色说明：必须设 --blockquote-color，否则引用文字不是绿色） */
   --blockquote-color:            var(--vsc-quote-fg);
-  --blockquote-background-color: var(--vsc-quote-bg);
+  --blockquote-background-color: var(--vsc-blockquote-bg);
   --blockquote-border-color:     var(--vsc-quote-border);
   --blockquote-font-style:       normal;
   --blockquote-style:            normal;
@@ -662,8 +689,36 @@ body .cm-s-obsidian span.cm-inline-code {
 .markdown-rendered pre,
 .cm-s-obsidian .HyperMD-codeblock-bg {
   background-color: var(--vsc-codeblock-bg);
+}
+
+/* 阅读模式：pre 是单一容器，描边与圆角可整体设置 */
+.markdown-rendered pre {
   border: 1px solid var(--vsc-border);
   border-radius: 4px;
+}
+
+/* Live Preview：代码块没有整块容器，而是由首行 / 中间行 / 末行三个独立的
+ * .cm-line 拼成（.HyperMD-codeblock-begin-bg / -bg / -end-bg）。
+ * 若对每行都下 border + border-radius，就会得到「每行各自一个圆角描边小方块」，
+ * 多行叠加后左右边缘呈波浪锯齿 —— 这是此前的缺陷。
+ * 正确做法：中间行只保留左右边框，首 / 末行各自补上上下边框与对应圆角。
+ * 选择器加 body 与 .mod-cm6 前缀，是为压过 Obsidian 内置的同属性规则。 */
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-bg {
+  border-left: 1px solid var(--vsc-border);
+  border-right: 1px solid var(--vsc-border);
+  border-radius: 0;
+}
+
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin-bg {
+  border-top: 1px solid var(--vsc-border);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end-bg {
+  border-bottom: 1px solid var(--vsc-border);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .markdown-rendered pre code {
@@ -726,15 +781,37 @@ body .cm-s-obsidian span.cm-inline-code {
 
 /* ---------- 4.8 引用块 ----------
  * markup.quote => #7EE787 / #116329（引用【文字】为绿色，这是 2026 主题的行为）
- * textBlockQuote.background => #242526 / #EAEAEA
+ * textBlockQuote.background 官方为 #242526 / #EAEAEA，但引用块改用
+ * --vsc-blockquote-bg（下调值，理由见 1.7 / 2.7），以避开与光标行的撞色。
  */
 .markdown-rendered blockquote,
 .cm-s-obsidian .HyperMD-quote {
-  background-color: var(--vsc-quote-bg);
+  background-color: var(--vsc-blockquote-bg);
   border-left: 3px solid var(--vsc-border);
   color: var(--vsc-quote-fg);
   padding-left: 1em;
+}
+
+/* 阅读模式：blockquote 是单一容器，右侧圆角可整体设置 */
+.markdown-rendered blockquote {
   border-radius: 0 3px 3px 0;
+}
+
+/* Live Preview：与代码块同理（见 4.7），引用块也由多个独立的 .cm-line 拼成，
+ * 每行都带同一个 `.HyperMD-quote` 类。若整体下 `border-radius: 0 3px 3px 0`，
+ * 多行时每一行各自产生右侧弧角，右边缘呈波浪状 —— 这是此前的缺陷。
+ * 正确做法：中间行直角，仅首 / 末行补上对应圆角。
+ * 选择器加 body 与 .mod-cm6 前缀，是为压过 Obsidian 内置的同属性规则。 */
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote {
+  border-radius: 0;
+}
+
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote:not(.HyperMD-quote-1) {
+  border-top-right-radius: 3px;
+}
+
+body .markdown-source-view.mod-cm6 .cm-line.HyperMD-quote:not(.HyperMD-quote-2) {
+  border-bottom-right-radius: 3px;
 }
 
 /* 引用块内的行内代码保持自身色 */
